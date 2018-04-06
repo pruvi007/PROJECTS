@@ -1,0 +1,46 @@
+body
+      {
+            background-image: url('libr.jpg');
+
+      }
+h1
+      {
+            color: White;
+            background: Black;
+      }
+table
+      {
+            border:5px solid black;
+            border-spacing: 10px;
+            width:20%;
+            height:25%;
+
+      }
+tr
+      {
+            background: Gray;
+
+
+      }
+th,td
+      {
+            height:20%;
+            text-align:center;
+            padding:10px;
+
+      }
+th:hover,td:hover
+      {
+            background-color: White;
+      }
+button
+      {
+            background-color:Gray;
+            border-radius: : 50%;
+            border: 2px solid black;
+            color: Black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 25px;
+      }
