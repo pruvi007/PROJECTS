@@ -1,0 +1,3 @@
+Paste these files in your tomcat server.
+use the location of login.jsp 
+add the location as /localhost/$address_of_login.jsp in your browser
