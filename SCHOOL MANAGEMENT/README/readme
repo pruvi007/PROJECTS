@@ -1,0 +1,17 @@
+This project is a fully functional School management System.
+Created for SHIKSHA BHARTI. (A school in bihar Shariff,Nalanda,Bihar)
+
+It supports
+1. Adding students
+2. Marks (4 terminals)- Updating and viewing
+3. Fees Collection (Month-Wise)
+4. Printing Report Card (I have generated a custom report Card)
+5. Printing Fees Slip (Custom Fees Slip)
+6. Remove Students
+
+Used:-
+FrontEnd- (Html/css + BootStrap + JavaScript)
+BackEnd - (Jsp + jdbc + java + mySql + Ajax + AngularJs )
+
+P.S
+I have also uploaded a video in this folder to view the working of the software. Hope you will watch. Thank You
