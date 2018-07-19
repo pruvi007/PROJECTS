@@ -1,0 +1,23 @@
+NEXT STOP (Know your stop)
+Every detail about the project->
+  The project is not what it was meant to be. I haven't able to get the list of places or precisely the list of bus stops between 
+  the origin and the destination. However it supports the following:-
+  
+  1. The main bus route 
+      The map on in the project will show the route of the bus. There is a section explaining about the route info(origin,
+      destination,total distance,time,fare)
+      However it misses the next stop section, as mentioned above at the top, I wasn't able to get the list of bus stops.
+  2. New passenger can be added from the ADD nav. It will show the fare to be paid.
+  3. View nav will dynamically update the list of passengers. However removing the passengers will only be done when their 
+      stop has arrived, but not functioning because no list of bus stops is maintained.
+  4. Update nav will update the current passenger's drop point and will display the extra fare to be paid.
+  
+  NOTE: If I had only the list of bus stops between the origin and the destination then the software would have been complete 
+        as described in the idea. I was able to this much only. Hope it would be appreciated. Thank YOU!
+        
+        
+  You can view the project from your local apache server.
+  Downlaod all the files and run index.php on the server.
+  I have also uploaded a video of the working of the software. You might look at it instead of doing all the manual running 
+  on the server.
+  
