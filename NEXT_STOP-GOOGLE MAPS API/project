@@ -1,0 +1,47 @@
+Project Title: 
+	NEXT STOP
+
+Introduction:  
+	This is a software which lets the bus passengers know about the upcoming bus stop. Generally if a passenger is new to a city or new to a certain route, he/she misses his/her destination. This sometimes creates problem. I have also faced this issue, not once but many times. So, it all boils down the software's sole purpose i.e. the passengers can keep the track of the coming bus stop and enjoy the journey without disturbing other passengers or the conductor asking about the next stop and worrying for nothing. The software will be run on a wide display at the entrance of the bus so that everyone's able to see it. It will display the map of the route and in large font, the upcoming bus stop. To add some extra features, it can keep track of all the passengers on board, and keep updating the list while the passengers board and leave the bus dynamically. This passenger track keeping can also help in maintaining less rush in the vehicle, allowing only limited number of passengers. 
+	Since India is moving very fast to a Digital India, this software can really create a big push. 
+
+Features:
+	1. Displays the ongoing bus route on the google map.
+	2. Display the upcoming bus stop.
+	3. Dynamically maintain and display the list of passengers onboard.
+	4. Calculates the complete earnings (fare of passengers) over the route.
+	5. Updating drop location and dynamically chaning fare.
+
+Diagrams 
+E-R Diagram:
+	Inlcudes just one table
+		PASSENGERS
+		SNO 	(INT)
+		NAME	(VARCHAR)
+		PICKUP	(VARCHAR)
+		DROP	(VARCHAR)
+		FARE 	(INT)
+	
+
+Data Structure And Algorithms:
+	Array manipulation(required to maintain the list of passengers).
+	Greedy(Sorting)-> The passengers will be sorted by their boarding time.
+
+Tools Used:
+	1. Google Maps API
+		(Maps JavaScript, Places, Directions, Distance Matrix)
+	2. Tomcat (Apache HTTP Server)
+	3. MySQL (Database)
+	4. PHP, AjAX (BackEnd)
+	5. HTML/CSS,BootStrap,JavaScript (FrontEnd)
+
+Research:
+	Gone through the Googple Maps API official documentation, then created the entire framework of the project.
+
+Application:
+	This software will be installed with necessary hardwares onto the transport buses. It will ease the travel journey of the passengers as they now wont be worried about their stop, just one look on the display screen of this software will let them know about upcoming stop. Now people wont miss their bus stops as they usually did becuase of unknown routes.
+
+	
+
+
+
