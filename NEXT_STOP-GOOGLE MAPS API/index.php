@@ -147,6 +147,13 @@
           padding:5px;
 
       }
+      #know
+      {
+          position: absolute;
+          top:9%;
+          left:10%;
+          font-size: 10px;
+      }
       #clock
       {
         position: absolute;
@@ -265,6 +272,9 @@
           <img src="google.png" width="7%" class="img-responsive">
       </div>
      
+     <div id="know">
+      <stong>KNOW YOU STOP !</stong>
+     </div>
      <div id="head">
     <h3><strong>NEXT STOP</strong></h3>
     </div>
