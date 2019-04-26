@@ -1,0 +1,2 @@
+This is a small scale project for providing the basic needs, like restaurants, barber, laundary, e-rickshaw. The basic idea is that customer's can get these services with just one click online. The customers can enter the name and password and can create an account and then get these services.
+ESOP enables small restaurants, vendors, barbers, rickshaw walas to go online can enhance their business.
