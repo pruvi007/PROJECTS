@@ -1,0 +1,590 @@
+{% extends 'services/base.html' %}
+
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+{% load staticfiles %}
+
+<div id="top"></div>
+<!-- <div id="side"></div>
+<div id="buttons">
+	<button  class="btn btn-primary" data-toggle="collapse" href="#items">Main Course</button><br><br>
+	<button  class="btn btn-primary" id="starters">Starters</button><br><br>
+	<button  class="btn btn-primary" id="order" aria-expanded="false">Order</button></div>
+
+</div> -->
+<div id="res_img">
+<img src='{% static "images/me.png" %}' width="50%">
+</div>
+<div id="inside_top">
+
+	<font size="5" color="white">MEAT & EAT</font><br>
+	<font size="2" color="white">Timing: <br>
+	Contact:</font>
+
+</div>
+<!-- Hello {{ request.session.username }} -->
+<div id="bill">
+	<div id="total"><span><font size="5" color = "white">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="white">0.0</font></strong></span></div>
+</div>
+
+<div id="items" >
+	
+	<table class="table table-borderless">
+		<tr>
+			<th>
+				{% csrf_token %}
+				<figure class="figure">
+				  <img src="{% static 'images/kadai.jpg' %}" class="figure-img img-fluid rounded"  width="25%" alt="A generic square placeholder image with rounded corners in a figure.">
+				  <figcaption class="figure-caption text-left">
+				  	<strong>Chicken Kadai&nbsp&nbspRs. 150</strong><br>
+
+				  	<div id="comb0" style="float: left;"><button id="minus0" class="btn btn-danger" value="-150">-</button><strong>&nbsp&nbsp&nbsp&nbspADD&nbsp&nbsp&nbsp&nbsp</strong><button id="plus0" class="btn btn-success" value="150">+</button></div>
+				  	<div id="count0"><strong><font color="red" size="5">0</font></strong></div>
+				  </figcaption>
+				</figure>
+			</th>
+			<th>
+				<figure class="figure">
+				  <img src="{% static 'images/burger.jpg' %}" class="figure-img img-fluid rounded"  width="25%" alt="A generic square placeholder image with rounded corners in a figure.">
+				  <figcaption class="figure-caption text-left" >
+				  	<strong>Chicken Burger&nbsp&nbspRs. 130</strong><br>
+
+				  	<div id="comb1" style="float: left;"><button id="minus1" class="btn btn-danger" value="-130">-</button><strong>&nbsp&nbsp&nbsp&nbspADD&nbsp&nbsp&nbsp&nbsp</strong><button id="plus1" class="btn btn-success" value="130">+</button></div>
+				  	<div id="count1"><strong><font color="red" size="5">0</font></strong></div>
+				  </figcaption>
+				</figure>
+			</th>
+
+			<th>
+				<figure class="figure">
+				  <img src="{% static 'images/fries.jpg' %}" class="figure-img img-fluid rounded"  width="25%" alt="A generic square placeholder image with rounded corners in a figure.">
+				  <figcaption class="figure-caption text-left" >
+				  	<strong>French Fries&nbsp&nbspRs. 80</strong><br>
+
+				  	<div id="comb2" style="float: left;"><button id="minus2" class="btn btn-danger" value="-80">-</button><strong>&nbsp&nbsp&nbsp&nbspADD&nbsp&nbsp&nbsp&nbsp</strong><button id="plus2" class="btn btn-success" value="80">+</button></div>
+				  	<div id="count2"><strong><font color="red" size="5">0</font></strong></div>
+				  </figcaption>
+				</figure>
+			</th>
+		</tr>
+
+	</table>
+	
+	
+	
+	<br>
+	 
+
+</div>
+<div id="divide2"></div>
+<div id="summary" >
+<strong><font size="5" color = "white">CART</font></strong><br><br></div><br><br>
+<div id="in_cart"><img src="{% static 'images/cart.png' %}" width="80%"></div>
+<button id="checkOut" class="btn btn-success">CheckOut</button> 
+
+<form action="{% url 'payment' %}">
+	<imput type="text" id="temp_val" name="temp_val">
+	<input type="submit" id="temp_sub" name="temp_sub">
+</form>
+
+<script>
+	var sum = [];
+	var total = 0;
+	var c = [];
+	for(var i=0;i<10;i++)
+	{
+		sum.push(0);
+		c.push(0);
+	}
+
+	$("#minus0").click( function(e){
+                var val = parseInt($("#minus0").val());
+                // alert(val);
+                if(c[0]>=0)
+                	c[0]-=1;
+
+                if(c[0]>=0)
+                {
+                	if(sum[0]+val>=0)
+	                {
+	                	sum[0] += val;
+	                	total+=val;
+	                }
+	                else{
+	                	sum[0]=0;
+	                	if(total+val>=0)
+	                		total+=val;
+	                	else total=0;
+	                }
+                }
+                if(c[0]<0)
+                	c[0]=0;
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="white">'+total+'.0</font></strong>';
+                var st2 = "";
+                if(c[0]==0)
+                	st2 = '<strong><font color="red" size="5">'+c[0]+'</font></strong>';
+                else
+                	st2 = '<strong><font color="green" size="5">'+c[0]+'</font></strong>';
+
+                $("#total").html(st);
+                $("#count0").html(st2);	
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }																																																			
+            });
+
+	$("#plus0").click( function(e){
+                var val = parseInt($("#plus0").val());
+                // alert(val);
+                c[0]+=1;
+                if(sum[0]+val>=0)
+                {
+                	sum[0] += val;
+                	total+=val;
+                }
+                
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="white">'+total+'.0</font></strong>';
+                var st2 = '<strong><font color="green" size="5">'+c[0]+'</font></strong>';
+                $("#total").html(st);
+                $("#count0").html(st2);	
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+
+            });
+
+	$("#minus1").click( function(e){
+                var val = parseInt($("#minus1").val());
+                // alert(val);
+                if(c[1]>=0)
+                	c[1]-=1;
+
+                if(c[1]>=0)
+                {
+                	if(sum[1]+val>=0)
+	                {
+	                	sum[1] += val;
+	                	total+=val;
+	                }
+	                else
+	                {
+	                	sum[1]=0;
+	                	if(total+val>=0)
+	                		total+=val;
+	                	else total=0;
+	                }
+                }
+                if(c[1]<0)
+                	c[1]=0;
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="white">'+total+'.0</font></strong>';
+                var st2 = "";
+                if(c[1]==0)
+                	st2 = '<strong><font color="red" size="5">'+c[1]+'</font></strong>';
+                else
+                	st2 = '<strong><font color="green" size="5">'+c[1]+'</font></strong>';
+
+                $("#total").html(st);
+                $("#count1").html(st2);	
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }																																																			
+            });
+
+	$("#plus1").click( function(e){
+                var val = parseInt($("#plus1").val());
+                // alert(val);
+                c[1]+=1;
+                if(sum[1]+val>=0)
+                {
+                	sum[1] += val;
+                	total += val;
+                }
+                
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="white">'+total+'.0</font></strong>';
+                var st2 = '<strong><font color="green" size="5">'+c[1]+'</font></strong>';
+                $("#total").html(st);
+                $("#count1").html(st2);	
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+
+            });
+
+	$("#minus2").click( function(e){
+                var val = parseInt($("#minus2").val());
+                // alert(val);
+                if(c[2]>=0)
+                	c[2]-=1;
+
+                if(c[2]>=0)
+                {
+                	if(sum[2]+val>=0)
+	                {
+	                	sum[2] += val;
+	                	total+=val;
+	                }
+	                else
+	                {
+	                	sum[2]=0;
+	                	if(total+val>=0)
+	                		total+=val;
+	                	else total=0;
+	                }
+                }
+                if(c[2]<0)
+                	c[2]=0;
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="white">'+total+'.0</font></strong>';
+                var st2 = "";
+                if(c[2]==0)
+                	st2 = '<strong><font color="red" size="5">'+c[2]+'</font></strong>';
+                else
+                	st2 = '<strong><font color="green" size="5">'+c[2]+'</font></strong>';
+
+                $("#total").html(st);
+                $("#count2").html(st2);
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }																																																				
+            });
+
+	$("#plus2").click( function(e){
+                var val = parseInt($("#plus2").val());
+                // alert(val);
+                c[2]+=1;
+                if(sum[2]+val>=0)
+                {
+                	sum[2] += val;
+                	total += val;
+                }
+                
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="white">'+total+'.0</font></strong>';
+                var st2 = '<strong><font color="green" size="5">'+c[2]+'</font></strong>';
+                $("#total").html(st);
+                $("#count2").html(st2);	
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+
+            });
+
+	$("#checkOut").prop('disabled', true);
+    $("#checkOut").click( function(e){
+    			var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[0]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                
+                if(st.length==0)
+                {
+                	$("#id_submit").prop('disabled', true);
+                }
+                else
+                {
+                	$('#temp_val').val(st);
+
+                	alert($('#temp_val').val());
+                	$('#temp_sub').click();
+
+                }
+
+            });
+
+   
+       
+</script>
+{% endblock %}

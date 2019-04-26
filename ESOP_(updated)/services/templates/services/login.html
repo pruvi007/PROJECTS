@@ -1,0 +1,101 @@
+{% extends 'services/base_visitor.html' %}
+{% block title %}Log In{% endblock %}
+{% block login_active %}active{% endblock %}
+{% load staticfiles %}
+{% block body %}
+
+
+
+<div class="container-fluid" style="position: absolute;top:20%;left:35%;width:30%;">
+
+    
+        
+            <div class="panel panel-default">
+                <h3>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspLog In</h3>
+                <center>
+                <div class="panel-body">
+                    
+                    <!-- {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %} -->
+                    <!-- action="{% url 'login_user'%}" -->
+                    {% block content %}
+                    <form class="form-horizontal" id="login"role="form"  action="{% url 'login_user'%}" method="POST" >
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <span class="glyphicon glyphicon-user">
+                                    <input id="id_username" maxlength="30" name="username" type="text" placeholder="USERNAME"  style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                                    </span>
+                            </div>
+                        </div>
+                        <div id="data"></div>
+                        <div class="form-group">
+                            <!-- <label class="control-label col-sm-2" for="id_password">
+                                
+                            </label> -->
+                            <div class="col-sm-10">
+                                <strong><span class="glyphicon glyphicon-asterisk"></strong>&nbsp&nbsp&nbsp
+                                    <input id="id_password" maxlength="30" name="password" type="password"  placeholder="PASSWORD" style="font-family: Courier New;font-size: 15px; border: none; border-bottom: 2px solid black;"></span>
+                            </div>
+                        </div>
+                        </center>
+                        <div class="form-group">
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                    {% endblock %}
+                </div>
+
+                <div class="panel-footer">
+                    Don't have an account? <a href="{% url 'register' %}">Click here</a> to register.
+                </div>
+                
+            </div>
+        
+    
+
+</div>
+{% block javascript %}
+<script>
+        
+
+        $("#id_username").change(function () {
+
+          var username = $("#id_username").val();
+          // alert(username);
+          
+          $.ajax({
+            type:'POST',
+            url: '/ajax/',
+            data:{
+                'str':username,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                // alert("done")
+                if(data.is_taken)
+                {
+                    var ht = '<img src="{% static "images/tick.png" %}" width="20%">';
+                    $("#data").html(ht);
+                }
+                else
+                {
+                    var ht = '<img src="{% static "images/cross.png" %}" width="10%">';
+                    // alert("YES");
+                    $("#data").html(ht);
+                }
+                
+            }
+          });
+
+        });
+    
+</script>
+{% endblock %}
+
+
+
+{% endblock %}

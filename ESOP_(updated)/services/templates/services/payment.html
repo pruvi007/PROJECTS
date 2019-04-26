@@ -1,0 +1,211 @@
+{% extends 'services/base.html' %}
+
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+{% load staticfiles %}
+
+<!-- <form style='display:none;'>
+<input type="text" id = 'name' value="{{request.session.username}}">
+</form> -->
+<!-- <form action="{% url 'mail_pay' %}" style="display:none;">
+  {% csrf_token %}
+  <input type="text" id="str" />
+  <input type="submit" id="str_sub" />
+</form> -->
+<div style="position: absolute;top:5%;left:2%;"><a href="{% url 'mbs' %}"><img src="{% static 'images/back.png' %}" width="10%"></a></div>
+<div id="intro" style="position: absolute;top:15%;left:26%;">
+  <strong><font size="4" >Hi! {{ request.session.username }}</font></strong>
+</div>
+
+<div class="panel panel-success" style="position: absolute;top:20%;left:25%;width:50%;">
+  <div class="panel-heading">
+    <h3 class="panel-title">PAYMENT GATEWAY</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-borderless">
+      <tr>
+      <th><strong>Amount to Pay</strong></th>
+      <th>&#x20B9;{{order}}</th>
+      </tr>
+</table>
+<table class = "table table-borderless">
+<tr><th>Items</th></tr>
+      {% for x in items%}
+      <tr><th>{{ x }}</th></tr>
+      {%endfor%}
+  </table>
+  <br>
+  {% csrf_token %}
+  <!-- <button class="btn btn-success" id='now'>PAY</button>
+  <div id="pay_succ"></div>
+  <form style="display:none;">
+    <input type="text" id="items" value="{{s_items}}"/>
+  </form>
+  </div>
+</div> -->
+<button class="btn" id='now'>
+    <div id="container"></div></button>
+
+<script>
+const baseRequest = {
+  apiVersion: 2,
+  apiVersionMinor: 0
+};
+const allowedCardNetworks = ["AMEX", "DISCOVER", "JCB", "MASTERCARD", "VISA"];
+const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
+const tokenizationSpecification = {
+  type: 'PAYMENT_GATEWAY',
+  parameters: {
+    'gateway': 'example',
+    'gatewayMerchantId': 'exampleGatewayMerchantId'
+  }
+};
+const baseCardPaymentMethod = {
+  type: 'CARD',
+  parameters: {
+    allowedAuthMethods: allowedCardAuthMethods,
+    allowedCardNetworks: allowedCardNetworks
+  }
+};
+const cardPaymentMethod = Object.assign(
+  {},
+  baseCardPaymentMethod,
+  {
+    tokenizationSpecification: tokenizationSpecification
+  }
+);
+let paymentsClient = null;
+function getGoogleIsReadyToPayRequest() {
+  return Object.assign(
+      {},
+      baseRequest,
+      {
+        allowedPaymentMethods: [baseCardPaymentMethod]
+      }
+  );
+}
+function getGooglePaymentDataRequest() {
+  const paymentDataRequest = Object.assign({}, baseRequest);
+  paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
+  paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+  paymentDataRequest.merchantInfo = {
+    // @todo a merchant ID is available for a production environment after approval by Google
+    // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
+    // merchantId: '01234567890123456789',
+    merchantName: 'Example Merchant'
+  };
+  return paymentDataRequest;
+}
+function getGooglePaymentsClient() {
+  if ( paymentsClient === null ) {
+    paymentsClient = new google.payments.api.PaymentsClient({environment: 'TEST'});
+  }
+  return paymentsClient;
+}
+function onGooglePayLoaded() {
+  const paymentsClient = getGooglePaymentsClient();
+  paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
+      .then(function(response) {
+        if (response.result) {
+          addGooglePayButton();
+        }
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+}
+function addGooglePayButton() {
+  const paymentsClient = getGooglePaymentsClient();
+  const button =
+      paymentsClient.createButton({onClick: onGooglePaymentButtonClicked});
+  document.getElementById('container').appendChild(button);
+}
+function getGoogleTransactionInfo() {
+  return {
+    currencyCode: 'INR',
+    totalPriceStatus: 'FINAL',
+    // set to cart total
+
+    totalPrice: '{{order}}'
+  };
+}
+function prefetchGooglePaymentData() {
+  const paymentDataRequest = getGooglePaymentDataRequest();
+  // transactionInfo must be set but does not affect cache
+  paymentDataRequest.transactionInfo = {
+    totalPriceStatus: 'NOT_CURRENTLY_KNOWN',
+    currencyCode: 'INR'
+  };
+  const paymentsClient = getGooglePaymentsClient();
+  paymentsClient.prefetchPaymentData(paymentDataRequest);
+}
+
+function onGooglePaymentButtonClicked() {
+  const paymentDataRequest = getGooglePaymentDataRequest();
+  paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+
+  const paymentsClient = getGooglePaymentsClient();
+  paymentsClient.loadPaymentData(paymentDataRequest)
+      .then(function(paymentData) {
+        // handle the response
+        processPayment(paymentData);
+      })
+      .catch(function(err) {
+        // show error in developer console for debugging
+        console.error(err);
+      });
+}
+function processPayment(paymentData) {
+  // show returned data in developer console for debugging
+    console.log(paymentData);
+  // @todo pass payment token to your gateway to process payment
+  paymentToken = paymentData.paymentMethodData.tokenizationData.token;
+}
+</script>
+<script async
+  src="https://pay.google.com/gp/p/js/pay.js"
+  onload="onGooglePayLoaded()"></script>
+
+  <div id="pay_succ"></div>
+  </div>
+</div>
+
+
+<script>
+  $('#now').click(function(e){
+    // var name = $('#name').val();
+    var items = '{{s_items}}'
+    // alert(items);
+    var name = '{{request.session.username}}';
+    var amt = '{{order}}';
+    var ref = Math.floor(10000000*Math.random());
+    // alert(name);
+    // alert(amt);
+    // alert(ref);
+    var st = name+" "+amt+" "+ref+" "+items;
+    // $('#str').val(st);
+    // $('#str_sub').val(st);
+    // $('#str_sub').click();
+
+    $.ajax({
+          type:'POST',
+          url: '/mail_pay/',
+          data:{
+              'str':st,
+              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+          },
+          dataType: 'json',
+          success: function (data) {
+              
+              var st = "<font size='4' color='green'>PAID SUCCESSFULLY</font>";
+              $('#pay_succ').html(st);
+              $('#now').prop('disabled',true);
+              
+              
+          }
+        });
+
+  })
+</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+Date: 17_Jan_2019
+Meet #3
+
+**UNDERSTANDING THE PROBLEM**
+
+# Q1. Who are the target customers/client ?
+Ans. ESOP, is a middle Layer between Customer and Seller. Therefore, the area of the public that will be directly involved in the use of our product will be the 
+following:
+1. Restaurant Owners 
+2. Barber Shop Owners
+3. Local Store Owners
+4. Customers, who are availing these services (As for now IIITG Junta)
+
+# Q2. What data, functions and features are required ?
+Ans. Following are the data that we need to have: E.g
+Restaurants -> Menus, Location, Timings, Special Offers, Contact details etc.
+Functions and features it'll perform(As discussed in 1st Meet):
+1. Users will be able to view the dashboard of the shops.(Timings+Special Offers+Discountsetc)
+2. Users will be able to flexibly select their choices and place order.
+3. Integration of online payment services.
+4. Better visualization and maintenance through ESOP.
+
+# Q3. Can the problem be represented graphically?
+Ans: Yes, a flow chart can be prepared for our product which will represent the process flow.
+
+
+ 

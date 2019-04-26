@@ -1,0 +1,858 @@
+{% extends 'services/base.html' %}
+
+{% load staticfiles%}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'services/bootstrap.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'services/style.css' %}"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+ <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
+				});
+			});
+		</script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+				/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+				*/
+		$().UItoTop({ easingType: 'easeOutQuart' });
+});
+</script>
+<header class="">
+  <div class="navbar navbar-default visible-xs">
+    <button type="button" class="navbar-toggle collapsed">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    
+  </div>
+
+  <nav class="sidebar">
+    <div class="navbar-collapse" id="navbar-collapse">
+      <div class="site-header hidden-xs">
+          <a class="site-brand" href="{% url 'index'%}" title="">
+            <img class="img-responsive site-logo" alt="" src="s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/mashup-logo.svg">
+            ESOP</a>
+        <p>Hi! {{ request.session.username }}</p>
+      </div>
+      <ul class="nav">
+        <li><a href="{% url 'index' %}" title="">Restaurants</a></li>
+        <li><a href="{% url 'barber'%}" title="">Barber</a></li>
+        <li><a href="{% url 'erick' %}">E-Rickshaw</a> </li>
+        <li><a href="{% url 'laundary'%}" title="">Laundary</a></li>
+
+  
+        <!--<li><a href="contact.html" title=""></a></li>-->
+        <!--<li><a href="components.html" title=""></a></li>-->
+
+      </ul>
+
+      <nav class="nav-footer">
+        <p class="nav-footer-social-buttons">
+          <a class="fa-icon" href="https://www.instagram.com/" title="">
+            <i class="fa fa-instagram"></i>
+          </a>
+          <a class="fa-icon" href="https://dribbble.com/" title="">
+            <i class="fa fa-dribbble"></i>
+          </a>
+          <a class="fa-icon" href="https://twitter.com/" title="">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </p>
+        <p></p>
+      </nav>
+    </div>
+  </nav>
+</header>
+
+<main class="" id="main-collapse">
+
+
+<div width="70%"
+	<div class="banner">
+		<div class="container">
+			<div class="header">
+				<div class="menu">
+						<a href="#" class="right_bt" id="activator"><img src="{% static "images/menu.png" %}" alt=""/></a>
+
+							<div class="box" id="box">
+								<div class="box_content">
+								   <div class="menu_box_list">
+									   <ul>
+										   <li class="active"><a href="#home" class="scroll">home</a></li>
+											<li><a href="#about" class="scroll">About us</a></li>
+											<li><a href="#services" class="scroll">Services</a></li>
+											<li><a href="#portfolio" class="scroll">portfolio</a></li>
+											<li><a href="#contact-us" class="scroll">contact </a></li>
+												<div class="clearfix"></div>
+										</ul>
+									</div>
+									<a class="boxclose" id="boxclose"><img src="{% static "images/close.png" %}" alt=""/></a>
+
+								</div>
+							</div>
+							<script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+								 <script type="text/javascript">
+										var $ = jQuery.noConflict();
+											$(function() {
+												$('#activator').click(function(){
+														$('#box').animate({'top':'0px'},500);
+												});
+												$('#boxclose').click(function(){
+														$('#box').animate({'top':'-700px'},500);
+												});
+											});
+											$(document).ready(function(){
+
+											//Hide (Collapse) the toggle containers on load
+											$(".toggle_container").hide();
+
+											//Switch the "Open" and "Close" state per click then slide up/down (depending on open/close state)
+											$(".trigger").click(function(){
+												$(this).toggleClass("active").next().slideToggle("slow");
+												return false; //Prevent the browser jump to the link anchor
+											});
+
+											});
+										</script>
+				</div>
+
+						<div class="clearfix"></div>
+			</div>
+			<div class="logo">
+				<a href="#"><img src="{% static "images/logo.png" %}" alt=""></a>
+			</div>
+			<div class="banner-info">
+				<h1>Welcome To<span> MBS CHEF</span></h1>
+			</div>
+		</div>
+	</div>
+<!-- header -->
+<!-- content -->
+<!-- <div class="happy" id="home">
+	<div class="col-md-3 happy-1">
+		<h5>Happy Hour</h5>
+		<h6>Part Time</h6>
+	</div>
+	<div class="col-md-3 happy-2">
+		<h4>Breakfast</h4>
+	</div>
+	<div class="col-md-3 happy-3">
+		<h4>Lunch</h4>
+	</div>
+	<div class="col-md-3 happy-4">
+		<h4>Dinner</h4>
+	</div>
+		<div class="clearfix"></div>
+</div> -->
+<!-- content -->
+<!-- fastfood -->
+<!-- <div class="fast food" id="services">
+	<div class="container">
+		<div class="col-md-6 fast-left">
+			<img src="{% static "images/4.jpg" %}" class="img-responsive" alt="">
+		</div>
+		<div class="col-md-6 fast-right">
+			<h3>Fast Food</h3>
+			<h5>You'll love our delicious fast food</h5>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.</p>
+			<a class="view" href="#">VIEW GALLERY<i class="arrow-rt1"></i></a>
+		</div>
+				<div class="clearfix"></div>
+			<div class="fast-foo">
+				<div class="col-md-6 fast-right1">
+					<h3>Drinks</h3>
+					<h5>We also produce delicious drinks</h5>
+					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.</p>
+					<a class="view" href="#">VIEW GALLERY<i class="arrow-rt1"></i></a>
+				</div>
+				<div class="col-md-6 fast-left1">
+					<img src="{% static "images/5.jpg" %}" class="img-responsive" alt="">
+				</div>
+					<div class="clearfix"></div>
+			</div>
+	</div>
+</div> -->
+<!-- fastfood -->
+<!-- team-->
+<!-- <div class="ourteam" id="portfolio">
+	<div class="container">
+		<div class="team">
+			<div class="product-tabs">
+					<!--Horizontal Tab-->
+
+				    <div id="horizontalTab">
+
+				        <!-- <ul> -->
+				            <!-- <li><a href="#tab-1">Fast Food</a></li> -->
+				            <!-- <li><a href="#tab-2">Drinks</a></li>
+				            <li><a href="#tab-3">Chicken</a></li>
+							 <li><a href="#tab-4">Rice</a></li> -->
+				        <!-- </ul> -->
+				        <br><br><br>
+				        <table class='table table-borderless' style="padding:20px 20px; width:75%;resize:both;overflow:auto;">
+				        	<tr>
+						<div id="tab-1" class="product-complete-info">
+								<div id="bill" style="position: absolute;top:125%;right:42%;color:black;">
+									<div id="total"><span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="black">0.0</font></strong></span></div>
+								</div>
+
+									<div class="team1">
+										<th><img src="{% static 'images/8.jpg' %}"  alt="" width="60%" />
+										<h4>Chicken Kadai</h4>
+                    <div id="comb0" style="float: left;"><button id="minus0" class="btn btn-danger" value="-150">-</button><strong>&nbsp&nbsp&nbsp&nbspADD&nbsp&nbsp&nbsp&nbsp</strong><button id="plus0" class="btn btn-success" value="150">+</button></div>
+        				  	<div id="count0"><strong><font color="red" size="5">0</font></strong></div>
+									</div></th>
+
+									<div class="team1">
+										<th><img src="{% static 'images/7.jpg' %}"  alt="" width="60%" />
+										<h4>Chicken Burger</h4>
+                    <div id="comb1" style="float: left;"><button id="minus1" class="btn btn-danger" value="-130">-</button><strong>&nbsp&nbsp&nbsp&nbspADD&nbsp&nbsp&nbsp&nbsp</strong><button id="plus1" class="btn btn-success" value="130">+</button></div>
+        				  	<div id="count1"><strong><font color="red" size="5">0</font></strong></div>
+									</div></th>
+
+									<div class="team1">
+										<th><img src="{% static 'images/6.jpg' %}"  alt="" width="60%"/>
+										<h4>French Fries</h4>
+                    <div id="comb2" style="float: left;"><button id="minus2" class="btn btn-danger" value="-80">-</button><strong>&nbsp&nbsp&nbsp&nbspADD&nbsp&nbsp&nbsp&nbsp</strong><button id="plus2" class="btn btn-success" value="80">+</button></div>
+        				  	<div id="count2"><strong><font color="red" size="5">0</font></strong></div>
+									</div></th>
+					</tr>
+				</table>
+                  <!-- <div id="divide2"></div> -->
+                  
+
+
+							<!-- <script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script> -->
+
+
+
+				    </div>
+            </div>
+        </div>
+        <div id="summary" style="position: absolute;right:8%;top:124%;">
+          <strong><font size="5">CART</font></strong><br><br></div><br><br>
+          <div id="in_cart" style="position: absolute;right:2%;top:136%;"><br><img src="{% static 'images/cart.png' %}"  ></div>
+          
+      </div>
+      
+      <button id="checkOut" class="btn btn-success" style="position: absolute;right:1%;top:180%;">CheckOut</button>
+  	 
+          
+				    <!-- Responsive Tabs JS -->
+				    <!-- <script src="{% static 'js/jquery.responsiveTabs.js' %}" type="text/javascript"></script> -->
+
+
+<!-- team -->
+<!-- customers -->
+<div class="customers" id="about">
+	<div class="container">
+		<div class="customer-1">
+			<div class="col-md-8 ourhappy">
+				<div class="wmuSlider example1 section" id="section-1">
+			   <article style="position: absolute; width: 100%; opacity: 0; height: 240px;">
+			   	   	 <h4>Our Happy Customers</h4>
+					 <h6>George Richard</h6>
+					 <p>Great food menu is awesome,there foods are not only great but also in the right price.i'll highly recommend:)</p>
+					 <ul>
+						<li><img src="{% static "images/9.png" %}" class="img-responsive" alt="" /></li>
+						<li><img src="{% static "images/10.png" %}" class="img-responsive" alt="" /></li>
+						<li><img src="{% static "images/11.png" %}" class="img-responsive" alt="" /></li>
+					</ul>
+				</article>
+				 <article style="position: absolute; width: 100%; opacity: 0; height: 240px;">
+			   	   	 <h4>Our Happy Customers</h4>
+					 <h6>George Richard</h6>
+					 <p>Great food menu is awesome,there foods are not only great but also in the right price.i'll highly recommend:)</p>
+					 <ul>
+						<li><img src="{% static "images/10.png" %}" class="img-responsive" alt="" /></li>
+						<li><img src="{% static "images/11.png" %}" class="img-responsive" alt="" /></li>
+						<li><img src="{% static "images/9.png" %}" class="img-responsive" alt="" /></li>
+					</ul>
+				</article>
+				 <article style="position: absolute; width: 100%; opacity: 0; height: 240px;">
+			   	   	 <h4>Our Happy Customers</h4>
+					 <h6>George Richard</h6>
+					 <p>Great food menu is awesome,there foods are not only great but also in the right price.i'll highly recommend:)</p>
+					<ul>
+						<li><img src="{% static "images/11.png" %}" class="img-responsive" alt="" /></li>
+						<li><img src="{% static "images/9.png" %}" class="img-responsive" alt="" /></li>
+						<li><img src="{% static "images/10.png" %}" class="img-responsive" alt="" /></li>
+					</ul>
+				</article>
+				<ul class="wmuSliderPagination">
+                	<li><a href="#" class="">0</a></li>
+                	<li><a href="#" class="">1</a></li>
+                	<li><a href="#" class="">2</a></li>
+                </ul>
+		  </div>
+		  </div>
+		  <!-- script -->
+          <script src="{% static 'js/jquery.wmuSlider.js' %}"></script>
+
+			<script>
+       			$('.example1').wmuSlider();
+   		    </script>
+			<!-- script -->
+
+			<div class="col-md-4 about">
+				<h4>About Menu</h4>
+				
+			<div class="clearfix"></div>
+			</div>
+
+
+		</div>
+	</div>
+
+</div>
+
+<div style="display:none;">
+<form action="{% url 'payment' %}" method="POST">
+	{% csrf_token %}
+	<imput type="text" id ="temp_val" name="temp_val" />
+	<input type="submit" id="temp_sub" name="temp_sub" />
+</form>
+</div>
+
+<script>
+	var sum = [];
+	var total = 0;
+	var c = [];
+	for(var i=0;i<10;i++)
+	{
+		sum.push(0);
+		c.push(0);
+	}
+
+	$("#minus0").click( function(e){
+                var val = parseInt($("#minus0").val());
+                // alert(val);
+                if(c[0]>=0)
+                	c[0]-=1;
+
+                if(c[0]>=0)
+                {
+                	if(sum[0]+val>=0)
+	                {
+	                	sum[0] += val;
+	                	total+=val;
+	                }
+	                else{
+	                	sum[0]=0;
+	                	if(total+val>=0)
+	                		total+=val;
+	                	else total=0;
+	                }
+                }
+                if(c[0]<0)
+                	c[0]=0;
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="black">'+total+'.0</font></strong>';
+                var st2 = "";
+                if(c[0]==0)
+                	st2 = '<strong><font color="red" size="5">'+c[0]+'</font></strong>';
+                else
+                	st2 = '<strong><font color="green" size="5">'+c[0]+'</font></strong>';
+
+                $("#total").html(st);
+                $("#count0").html(st2);
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+            });
+
+	$("#plus0").click( function(e){
+                var val = parseInt($("#plus0").val());
+                // alert(val);
+                c[0]+=1;
+                if(sum[0]+val>=0)
+                {
+                	sum[0] += val;
+                	total+=val;
+                }
+
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="black">'+total+'.0</font></strong>';
+                var st2 = '<strong><font color="green" size="5">'+c[0]+'</font></strong>';
+                $("#total").html(st);
+                $("#count0").html(st2);
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+
+            });
+
+	$("#minus1").click( function(e){
+                var val = parseInt($("#minus1").val());
+                // alert(val);
+                if(c[1]>=0)
+                	c[1]-=1;
+
+                if(c[1]>=0)
+                {
+                	if(sum[1]+val>=0)
+	                {
+	                	sum[1] += val;
+	                	total+=val;
+	                }
+	                else
+	                {
+	                	sum[1]=0;
+	                	if(total+val>=0)
+	                		total+=val;
+	                	else total=0;
+	                }
+                }
+                if(c[1]<0)
+                	c[1]=0;
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="black">'+total+'.0</font></strong>';
+                var st2 = "";
+                if(c[1]==0)
+                	st2 = '<strong><font color="red" size="5">'+c[1]+'</font></strong>';
+                else
+                	st2 = '<strong><font color="green" size="5">'+c[1]+'</font></strong>';
+
+                $("#total").html(st);
+                $("#count1").html(st2);
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+            });
+
+	$("#plus1").click( function(e){
+                var val = parseInt($("#plus1").val());
+                // alert(val);
+                c[1]+=1;
+                if(sum[1]+val>=0)
+                {
+                	sum[1] += val;
+                	total += val;
+                }
+
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="black">'+total+'.0</font></strong>';
+                var st2 = '<strong><font color="green" size="5">'+c[1]+'</font></strong>';
+                $("#total").html(st);
+                $("#count1").html(st2);
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+
+            });
+
+	$("#minus2").click( function(e){
+                var val = parseInt($("#minus2").val());
+                // alert(val);
+                if(c[2]>=0)
+                	c[2]-=1;
+
+                if(c[2]>=0)
+                {
+                	if(sum[2]+val>=0)
+	                {
+	                	sum[2] += val;
+	                	total+=val;
+	                }
+	                else
+	                {
+	                	sum[2]=0;
+	                	if(total+val>=0)
+	                		total+=val;
+	                	else total=0;
+	                }
+                }
+                if(c[2]<0)
+                	c[2]=0;
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="black">'+total+'.0</font></strong>';
+                var st2 = "";
+                if(c[2]==0)
+                	st2 = '<strong><font color="red" size="5">'+c[2]+'</font></strong>';
+                else
+                	st2 = '<strong><font color="green" size="5">'+c[2]+'</font></strong>';
+
+                $("#total").html(st);
+                $("#count2").html(st2);
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+            });
+
+	$("#plus2").click( function(e){
+                var val = parseInt($("#plus2").val());
+                // alert(val);
+                c[2]+=1;
+                if(sum[2]+val>=0)
+                {
+                	sum[2] += val;
+                	total += val;
+                }
+
+                // alert(sum);
+                var st = '<span><font size="5">TOTAL:&nbsp&nbsp&nbsp&nbsp</font><strong><font size="5" color="black">'+total+'.0</font></strong>';
+                var st2 = '<strong><font color="green" size="5">'+c[2]+'</font></strong>';
+                $("#total").html(st);
+                $("#count2").html(st2);
+
+                var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                if(st.length==0)
+                {
+                	var st2 = "<img src='{% static 'images/cart.png' %}' width='80%'>";
+                	$('#in_cart').html(st2);
+                		$("#checkOut").prop('disabled', true);
+                }
+                else
+                {
+                	var s = st.split(" ");
+                	var item = [];
+                	for(var i=0;i<s.length;i++)
+                	{
+                		item.push(s[i].split(","));
+                	}
+
+                	var table = "<table class='table table-borderless' style='width:20%;height:40%;font-size:12px;color:black;'><tr><th>ITEM NAME</th><th>QUANTITY</th><th>AMOUNT</th></tr>";
+                	for(var i=0;i<item.length;i++)
+                	{
+
+                		table += "<tr>";
+                		for(var j=0;j<item[i].length;j++)
+                		{
+                			table += "<td>"+item[i][j]+"</td>";
+                		}
+                		table+="</tr>";
+                	}
+                	table+="<tr><td colspan='2'><strong>TOTAL</strong></td><td>"+total+"</td></tr>";
+                	table+="</table>";
+                	// var st2 = "<font size='5'>"+st+"</font>";
+                	$('#in_cart').html(table);
+                	$("#checkOut").prop('disabled', false);
+                }
+
+            });
+
+	$("#checkOut").prop('disabled', true);
+    $("#checkOut").click( function(e){
+    			var st="";
+                if(c[0]>0)
+                {
+                	var val = c[0]*150;
+                	st = st + "ChickenKadai," + c[0] + ","+val+" ";
+                }
+                if(c[1]>0)
+                {
+                	var val = c[1]*130;
+                	st = st + "ChickenBurger," + c[1] + ","+val+" ";
+                }
+                if(c[2]>0)
+                {
+                	var val = c[2]*80;
+                	st = st + "FrenchFries," + c[2] + ","+val+" ";
+                }
+                // alert(st);
+                if(st.length==0)
+                {
+                	$("#id_submit").prop('disabled', true);
+                }
+
+                else
+                {
+
+                	var strs = st.split(" ");
+                	var amt = 0
+                	var items = [];
+                	for(var i=0;i<strs.length;i++)
+                	{
+                		items.push(strs[i].split(","))
+                		// alert(items[i])
+                	}
+                	// alert(items.length)
+                	for(var i=0;i<items.length;i++)
+                	{
+                		var x = parseInt(items[i][2]);
+                		if(x>0)
+                			amt += x;
+                	}
+                	
+                	// window.location.href = "http://localhost:8000/payment/";
+                	// alert(amt);
+                	$('#temp_val').val(st);
+                	$('#temp_sub').val(st);
+
+                	// alert($('#temp_val').val());
+                	$('#temp_sub').click();
+
+                }
+
+            });
+
+
+
+</script>
+{% endblock %}

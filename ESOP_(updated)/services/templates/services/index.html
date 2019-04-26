@@ -1,0 +1,175 @@
+{% extends 'services/base.html' %}
+
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+
+
+<!--<mfstarttaginclude-header contenteditable="false"></mfstarttaginclude-header>-->
+
+  <!--<meta charset="UTF-8">-->
+  <!--<meta content="IE=edge" http-equiv="X-UA-Compatible">-->
+  <!--<meta content="width=device-width,initial-scale=1" name="viewport">-->
+  <!--<meta content="Page description" name="description">-->
+  <!--<meta name="google" content="notranslate">-->
+  <!--<meta content="Mashup templates have been developped by Orson.io team" name="author">-->
+
+  <!--&lt;!&ndash; Disable tap highlight on IE &ndash;&gt;-->
+  <!--<meta name="msapplication-tap-highlight" content="no">-->
+  
+  <link href="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/apple-icon-180x180.png" rel="apple-touch-icon">
+  <link href="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/favicon.ico" rel="icon">
+
+
+
+  <!--<title>Title page</title>  -->
+
+<link href="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/site/css/style.css" rel="stylesheet">
+
+
+
+<!-- Add your content of header -->
+<header class="">
+  <div class="navbar navbar-default visible-xs">
+    <button type="button" class="navbar-toggle collapsed">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a href="{% url 'index'%}" class="navbar-brand">Mashup Template</a>
+  </div>
+
+  <nav class="sidebar">
+    <div class="navbar-collapse" id="navbar-collapse">
+      <div class="site-header hidden-xs">
+          <a class="site-brand" href="{% url 'index'%}" title="">
+            <img class="img-responsive site-logo" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/mashup-logo.svg">
+            ESOP</a>
+        <p>Hi! {{ request.session.username }}</p>
+      </div>
+      <ul class="nav">
+        <li><a href="{% url 'index'%}" title="">Restaurants</a></li>
+        <li><a href="{% url 'barber'%}" title="">Barber</a></li>
+        <li><a href="{% url 'erick' %}">E-Rickshaw</a> </li>
+        <li><a href="{% url 'laundary'%}" title="">Laundary</a></li>
+        <!--<li><a href="contact.html" title=""></a></li>-->
+        <!--<li><a href="components.html" title=""></a></li>-->
+
+      </ul>
+
+      <nav class="nav-footer">
+        <p class="nav-footer-social-buttons">
+          <a class="fa-icon" href="https://www.instagram.com/" title="">
+            <i class="fa fa-instagram"></i>
+          </a>
+          <a class="fa-icon" href="https://dribbble.com/" title="">
+            <i class="fa fa-dribbble"></i>
+          </a>
+          <a class="fa-icon" href="https://twitter.com/" title="">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </p>
+        <p></p>
+      </nav>  
+    </div> 
+  </nav>
+</header>
+
+<main class="" id="main-collapse">
+
+<!-- Add your site or app content here -->
+ 
+<div class="hero-full-wrapper">
+  <div class="grid" style="position: relative; height: 1311.8px;">
+  <div class="gutter-sizer"></div>
+    <div class="grid-sizer"></div>
+    
+    <div class="grid-item" style="position: absolute; left: 0px; top: 0px;">
+      <img class="img-responsive" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/img-12.jpg">
+      <a href="{% url 'mbs' %}" class="project-description">
+        <div class="project-text-holder">
+          <div class="project-text-inner">
+            <h3>MBS CHEF</h3>
+            <p>Discover more</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    
+    <div class="grid-item" style="position: absolute; left: 359.906px; top: 0px;">
+      <img class="img-responsive" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/img-05.jpg">
+      <a href="{% url 'meat'%}" class="project-description">
+        <div class="project-text-holder">
+          <div class="project-text-inner">
+            <h3>MEAT AND EAT</h3>
+            <p>Discover more</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="grid-item" style="position: absolute; left: 719.813px; top: 0px;">
+      <img class="img-responsive" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/img-13.jpg">
+      <a href="project.html" class="project-description">
+        <div class="project-text-holder">
+          <div class="project-text-inner">
+            <h3>&nbsp;VOLGA</h3>
+            <p>Discover more</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="grid-item" style="position: absolute; left: 0px; top: 243.5px;">
+      <img class="img-responsive" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/img-04.jpg">
+      <a href="project.html" class="project-description">
+        <div class="project-text-holder">
+          <div class="project-text-inner">
+            <h3>KAMAKHYA GRAND</h3>
+            <p>Discover more</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    
+
+
+    <div class="grid-item" style="position: absolute; left: 359.906px; top: 534.515px;">
+      <img class="img-responsive" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/img-11.jpg">
+      <a href="project.html" class="project-description">
+        <div class="project-text-holder">
+          <div class="project-text-inner">
+            <h3>TASTE OF HEAVEN</h3>
+            <p>Discover more</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+
+    
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+     masonryBuild();
+  });
+</script>
+
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function (event) {
+  navbarToggleSidebar();
+  navActivePage();
+});
+</script>
+
+<script type="text/javascript" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/libs/main.js"></script>
+
+
+
+{% endblock %}

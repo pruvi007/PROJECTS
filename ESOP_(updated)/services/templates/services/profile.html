@@ -1,0 +1,196 @@
+{% extends 'services/base.html' %}
+
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+{% load static %}
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<div style="position: absolute;top:2%;left:2%;"><a href="{% url 'index' %}"><img src="{% static 'images/back.png' %}" width="10%"></a></div>
+
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+  		<div class="col-sm-10"><h1>User name</h1></div>
+    	<div class="col-sm-2"><a href="{% url 'index'%}" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/mashup-logo.svg"></a></div>
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+
+
+      <div class="text-center">
+        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        <h6>Upload a different photo...</h6>
+        <input type="file" class="text-center center-block file-upload">
+      </div>
+      </hr><br>
+
+
+          <div class="panel panel-default">
+
+            <div class="panel-heading">My Orders <i class="fa fa-link fa-1x"></i></div>
+            {% if n_orders > 0%}
+            {% for x in orders%}
+            <br>
+            <center><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#modal{{x}}">Order No - {{x}}</button></center>
+
+
+            {% csrf_token %}
+          <!-- Modal -->
+          <div id="modal{{x}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><strong>Your Order Summary</strong></h4>
+                </div>
+                <div class="modal-body">
+                
+
+                <div id="items{{x}}"><!-- <button id="btn{{x}}">View Your Order</button> --></div>
+                <script>
+                      // $(document).on('click', '#btn{{x}}', function(e){
+                        $(document).ready(function() {
+                        // alert('{{x}}');
+                        var ref_id = '{{x}}';
+                        // alert(ref_id);
+                        // alert(typeof ref_id);
+                        $.ajax({
+                              type:'POST',
+                              url: '/get_items/',
+                              data:{
+                                  'str':'{{x}}',
+                                  csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                              },
+                              dataType: 'json',
+                              success: function(data)
+                              {
+                                  var st = data.items;
+                                  if(st.length==0)
+                                  {
+                                    var tab = "<font color='red' size='4'><strong>No Orders</strong></font>";
+                                  }
+                                  else
+                                  {
+                                    var amt = data.amount;
+                                    // alert(st);
+                                    var items = st.split(",");
+                                    var tab = "<table class='table table-borderless' ><tr><th style='border:none;'>Item-Name</th></tr>";
+                                    for(var i=0;i<items.length-1;i++)
+                                    {
+                                        
+                                        tab = tab +"<tr><td style='border:none;'>"+items[i]+"</td></tr>";
+                                    }
+                                    tab = tab+"<tr><th>TOTAL: "+amt+"</th></tr>";
+                                    tab = tab+"</table>";
+                                    // alert(tab);
+                                  }
+                                  
+                                  $('#items{{x}}').html(tab);
+                              }
+                            });
+                        });
+                </script>
+                  <!-- <p>Some text in the modal.</p> -->
+
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+            {% endfor %}
+            {% else %}
+            <font color='red' size='4'><strong>No Orders</strong></font>
+
+            {% endif %}
+            
+            <br>
+          </div>
+
+
+
+          
+
+
+
+
+
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                  <form class="form" action="{% url 'update_profile' %}" method="post" id="registrationForm">
+                  {% csrf_token %}
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                              <label for="username"><h4>Username</h4></label>
+                              <input type="text" class="form-control" name="username" id="username" placeholder="" value = "{{ request.session.username }}" title="enter your first name if any." readonly style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                          </div>
+                      </div>
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                              <label for="first_name"><h4>First name</h4></label>
+                              <input type="text" class="form-control" name="first_name" id="first_name" placeholder="" value="{{ first_name }}" title="enter your first name if any." style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                          </div>
+                      </div>
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                            <label for="last_name"><h4>Last name</h4></label>
+                              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="" value="{{ last_name }}" title="enter your last name if any." style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                          </div>
+                      </div>
+
+
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                             <label for="mobile"><h4>Mobile</h4></label>
+                              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="" value="{{ phone }}" title="enter your mobile number if any." style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                          </div>
+                      </div>
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Email</h4></label>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="" value="{{ email }}" title="enter your email." style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                          </div>
+                      </div>
+                      <div class="form-group">
+
+                          <div class="col-xs-6">
+                              <label for="address"><h4>Address</h4></label>
+                              <input type="address" class="form-control" name = "address" id="address" placeholder="" value="{{ address }}" title="enter a location" style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                               	<!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->
+                            </div>
+                      </div>
+              	</form>
+
+              <hr>
+
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+                                                      
+{%endblock%}

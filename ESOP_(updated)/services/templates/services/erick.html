@@ -1,0 +1,273 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en"><head>-->
+  <!--<meta charset="UTF-8">-->
+  <!--<meta content="IE=edge" http-equiv="X-UA-Compatible">-->
+  <!--<meta content="width=device-width,initial-scale=1" name="viewport">-->
+  <!--<meta content="description" name="description">-->
+  <!--<meta name="google" content="notranslate">-->
+  <!--<meta content="Mashup templates have been developped by Orson.io team" name="author">-->
+
+  <!--&lt;!&ndash; Disable tap highlight on IE &ndash;&gt;-->
+  <!--<meta name="msapplication-tap-highlight" content="no">-->
+{% extends 'services/base.html' %}
+
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+
+  
+  <link href="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/apple-icon-180x180.png" rel="apple-touch-icon">
+  <link href="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/favicon.ico" rel="icon">
+ <!--  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvQDfUUccUtRojyjq5_uadoM2x3eh_LUU&libraries&callback=initMap">
+    </script> -->
+   
+
+  <title>Title page</title>  
+
+<link href="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/site/css/style.css" rel="stylesheet"></head>
+
+<!--<body>-->
+
+ <!-- Add your content of header -->
+<header class="">
+  <div class="navbar navbar-default visible-xs">
+    <button type="button" class="navbar-toggle collapsed">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a href="{% url 'index'%}" class="navbar-brand">Mashup Template</a>
+  </div>
+
+  <nav class="sidebar">
+    <div class="navbar-collapse" id="navbar-collapse">
+      <div class="site-header hidden-xs">
+          <a class="site-brand" href="{% url 'index' %}" title="">
+            <img class="img-responsive site-logo" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/mashup-logo.svg">
+            ESOP</a>
+            <p>Hi! {{ request.session.username }}</p>
+        
+      </div>
+      <ul class="nav">
+        <li><a href="http://localhost:8000/index/" title="">Restaurants</a></li>
+        <li><a href="{% url 'barber'%}" title="">Barber</a></li>
+        <li><a href="{% url 'laundary'%}" title="">Laundary</a></li>
+        <li><a href="{% url 'erick' %}">E-Rickshaw</a> </li>
+        <!--<li><a href="contact.html" title="">Contact</a></li>-->
+        <!--<li><a href="components.html" title="">Components</a></li>-->
+
+      </ul>
+
+      <nav class="nav-footer">
+        <p class="nav-footer-social-buttons">
+          <a class="fa-icon" href="https://www.instagram.com/" title="">
+            <i class="fa fa-instagram"></i>
+          </a>
+          <a class="fa-icon" href="https://dribbble.com/" title="">
+            <i class="fa fa-dribbble"></i>
+          </a>
+          <a class="fa-icon" href="https://twitter.com/" title="">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </p>
+        <p></p>
+      </nav>  
+    </div> 
+  </nav>
+</header>
+<main class="" id="main-collapse">
+
+<div id="map"></div>
+
+<div class="row">
+  <div class="col-xs-12 section-container-spacer">
+  	<br><br><br><br><br><br><br><br><br><br>
+    <h1>E-RickShaw Service</h1>
+    
+  </div>
+
+  
+    <!-- <img class="img-responsive" alt="" src="../common/assets/45166618-laundry-service-design-vector-illustration.jpg"> -->
+    <table class="table table-borderless">
+      <tr><th>
+    <h2>Driver1</h2>
+    <p>Pinku <br>7903471774</p></th>
+    <th><h2>Driver2</h2>
+    <p>Vikash<br>9876549810</p></th>
+    <th><h2>Driver3</h2>
+    <p>Nikku<br>9878849810</p></th>
+    <th><h2>Driver4</h2>
+    <p>Malik<br>9876577710</p></th>
+    </tr></table>
+    <!--<a href="contact.html" class="btn btn-primary" title=""> Get in touch</a>-->
+  
+
+  <!--<div class="col-xs-12 col-md-4 section-container-spacer">-->
+  <!--  <img class="img-responsive" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/img-13.jpg">-->
+  <!--  <h2>Adipiscing</h2>-->
+  <!--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+  <!--  <a href="contact.html" class="btn btn-primary" title=""> Get in touch</a>-->
+  <!--</div>-->
+
+  <!--<div class="col-xs-12 col-md-4 section-container-spacer">-->
+  <!--  <img class="img-responsive" alt="" src="https://s3.amazonaws.com/esite.io/projects/M362e332f96a09f3b34ca4578993ca0071552757584297/common/assets/img-14.jpg">-->
+  <!--  <h2>Dolor</h2>-->
+  <!--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+  <!--  <a href="contact.html" class="btn btn-primary" title=""> Get in touch</a>-->
+  <!--</div>-->
+
+</div>
+
+
+</main>
+
+
+ {% block javascript %}
+<script>
+     
+
+      function initMap() {
+      	var latlng = {lat:26.1025,lng: 91.5730};
+      	var latlng1 = {lat:26.1045,lng: 91.5810};
+      	var latlng2 = {lat:26.1032,lng: 91.5745};
+      	var latlng3 = {lat:26.1010,lng: 91.5665};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          mapTypeControl: true,
+          //VIP MARKET as Center
+          center: {lat: 26.1055, lng: 91.5860},
+          zoom: 13
+        });
+
+        var marker1 = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          title: 'E-RickShaw 1'
+        });
+        var marker2 = new google.maps.Marker({
+          position: latlng1,
+          map: map,
+          title: 'E-RickShaw 2'
+        });
+        var marker3 = new google.maps.Marker({
+          position: latlng2,
+          map: map,
+          title: 'E-RickShaw 3'
+        });
+        var marker4 = new google.maps.Marker({
+          position: latlng3,
+          map: map,
+          title: 'E-RickShaw 4'
+        });
+
+        var contentString1 = '<h1>Rickshaw-1</br><strong>Praveen</strong></br>7903471770</br>';
+        var contentString2 = '<h1>Rickshaw-2</br><strong>Abhinav</strong></br>Unknown</br>';
+        var contentString3 = '<h1>Rickshaw-3</br><strong>Nikku</strong></br>Nhi Hai</br>';
+        var infowindow1 = new google.maps.InfoWindow({
+          content: contentString1
+        });
+        var infowindow2 = new google.maps.InfoWindow({
+          content: contentString2
+        });
+        var infowindow1 = new google.maps.InfoWindow({
+          content: contentString3
+        });
+        
+        marker1.addListener('click', function() {
+          infowindow1.open(map, marker1);
+        });
+        marker2.addListener('click', function() {
+          infowindow2.open(map, marker2);
+        });
+        marker3.addListener('click', function() {
+          infowindow3.open(map, marker3);
+        });
+        
+        new AutocompleteDirectionsHandler(map);
+      }
+
+      function AutocompleteDirectionsHandler(map) {
+        this.map = map;
+        this.originPlaceId = null;
+        this.destinationPlaceId = null;
+        this.travelMode = 'WALKING';
+        var originInput = document.getElementById('origin-input');
+        var destinationInput = document.getElementById('destination-input');
+        var modeSelector = document.getElementById('mode-selector');
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay.setMap(map);
+
+        var originAutocomplete = new google.maps.places.Autocomplete(
+            originInput, {placeIdOnly: true});
+        var destinationAutocomplete = new google.maps.places.Autocomplete(
+            destinationInput, {placeIdOnly: true});
+
+        this.setupClickListener('changemode-walking', 'WALKING');
+        this.setupClickListener('changemode-transit', 'TRANSIT');
+        this.setupClickListener('changemode-driving', 'DRIVING');
+
+        this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+        this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
+      }
+
+      // Sets a listener on a radio button to change the filter type on Places
+      // Autocomplete.
+      AutocompleteDirectionsHandler.prototype.setupClickListener = function(id, mode) {
+        var radioButton = document.getElementById(id);
+        var me = this;
+        radioButton.addEventListener('click', function() {
+          me.travelMode = mode;
+          me.route();
+        });
+      };
+
+      AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
+        var me = this;
+        autocomplete.bindTo('bounds', this.map);
+        autocomplete.addListener('place_changed', function() {
+          var place = autocomplete.getPlace();
+          if (!place.place_id) {
+            window.alert("Please select an option from the dropdown list.");
+            return;
+          }
+          if (mode === 'ORIG') {
+            me.originPlaceId = place.place_id;
+          } else {
+            me.destinationPlaceId = place.place_id;
+          }
+          me.route();
+        });
+
+      };
+
+      AutocompleteDirectionsHandler.prototype.route = function() {
+        if (!this.originPlaceId || !this.destinationPlaceId) {
+          return;
+        }
+        var me = this;
+
+        this.directionsService.route({
+          origin: {'placeId': this.originPlaceId},
+          destination: {'placeId': this.destinationPlaceId},
+          travelMode: this.travelMode
+        }, function(response, status) {
+          if (status === 'OK') {
+            me.directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      };
+  </script>
+{% endblock %}
+
+ 
+
+{%endblock%}

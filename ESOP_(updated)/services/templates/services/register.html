@@ -1,0 +1,318 @@
+{% extends 'services/base_visitor.html' %}
+{% block title %}Register{% endblock %}
+{% block register_active %}active{% endblock %}
+{% load staticfiles %}
+{% block body %}
+<div class="container-fluid" style="position: absolute;top:20%;left:35%;width:30%;">
+
+   
+            <div class="panel panel-default">
+                <h3>&nbsp&nbsp&nbsp&nbsp&nbspRegister</h3>
+                <center>
+                <div class="panel-body">
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" id = "reg" name="reg" role="form" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            
+                            <div class="col-sm-10">
+                                 <span class="glyphicon glyphicon-user">&nbsp<input id="id_username" size="25%" maxlength="30" name="username" type="text" placeholder="USERNAME" title="Must be atleast 4 characters long. Contains only alphanumeric characters" onkeyup="checkAndEnableButton()" 
+                                    style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;"> 
+                            </div>
+                            <div id="reg_username"></div>
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <div class="col-sm-10">
+                                <span class="glyphicon glyphicon-envelope">&nbsp<input id="id_email" size="25%" maxlength="50" name="email" type="text" placeholder="EMAIL" title="Must be a valid email." onkeyup="checkAndEnableButton()" 
+                                    style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                            </div>
+                            <div id="reg_email"></div>
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <div class="col-sm-10">
+                                <span class="glyphicon glyphicon-asterisk">&nbsp<input id="id_password" size="25%" maxlength="30" name="password" type="password" placeholder="PASSWORD" title="Must be atleast 8 characters long."  onkeyup="checkAndEnableButton()" 
+                                    style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <div class="col-sm-10">
+                                <span class="glyphicon glyphicon-asterisk">&nbsp<input id="id_password2" size="25%" maxlength="30" name="password2" type="password" placeholder="CONFIRM-PASSWORD" title="Must be atleast 8 characters long." onkeyup="checkAndEnableButton()" 
+                                    style="font-family: Courier New;font-size: 15px;border: none; border-bottom: 2px solid black;">
+                            </div>
+                            <div id = "reg_password"></div>
+                        </div>
+                        <div class ="form-group">
+                            <br>
+                            <div class="col-sm-10">
+                            <table class="table table-borderless">
+                            <tr><th colspan="2">Role</th></tr>
+                            <tr>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<th><input type="radio" name="role" value="customer" checked> Customer</th><th>
+                            <input type="radio" name="role" value="seller"> Seller<br></th></tr></table>
+                            </div>
+                        </div>
+                        <!-- <a href="https://form.jotform.me/90271809378465">Click here</a> -->
+                        </center>
+                        <div class="form-group">
+                            
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <button type="submit" class="btn btn-success" id="id_submit">Submit</button>
+
+                            
+                        </div>
+                        <center><div id="reg_submit"></div></center>
+                    </form>
+                    <br>
+                </div>
+
+
+                <div class="panel-footer">
+                    Already have an account? <a href="{% url 'login_user' %}">Click here</a> to log in.
+                </div>
+            </div>
+    
+
+</div>
+
+{% block javascript %}
+<script>
+        
+
+        $("#id_username").change(function () {
+
+          var username = $("#id_username").val();
+          // alert(username);
+          
+          $.ajax({
+            type:'POST',
+            url: '/ajax/validate/username/',
+            data:{
+                'str':username,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                if(data.is_taken)
+                {
+                    var st = '<img src="{% static "images/cross.png" %}" width="6%">';
+                    $("#reg_username").html(st);
+                }
+                else if(!data.is_taken && data.alnum)
+                {
+                    var st = '<img src="{% static "images/tick.png" %}" width="10%">';
+                    $("#reg_username").html(st);
+                }
+                else if(!data.is_taken && !data.alnum)
+                {
+                    var st = '<img src="{% static "images/cross.png" %}" width="6%">';
+                    $("#reg_username").html(st);
+                }
+                
+                
+            }
+          });
+
+        });
+
+        $("#id_email").change(function () {
+
+          var email = $("#id_email").val();
+          // alert(username);
+          
+          $.ajax({
+            type:'POST',
+            url: '/ajax/validate/email/',
+            data:{
+                'str':email,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                if(!data.email || data.present)
+                {
+                    var st = '<img src="{% static "images/cross.png" %}" width="6%">';
+                    $("#reg_email").html(st);
+                }
+
+                else if(data.email)
+                {
+                    var st = '<img src="{% static "images/tick.png" %}" width="10%">';
+                    $("#reg_email").html(st);
+                }
+                
+                
+                
+            }
+          });
+
+        });
+
+        $("#id_password2").change(function () {
+
+          var pass1 = $("#id_password").val();
+          var pass2 = $("#id_password2").val();
+          // alert(username);
+          var str = pass1 + "," + pass2
+          $.ajax({
+            type:'POST',
+            url: '/ajax/validate/password/',
+            data:{
+                'str':str,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                if(data.password)
+                {
+                    var st = '<img src="{% static "images/tick.png" %}" width="10%">';
+                    $("#reg_password").html(st);
+                }
+                else
+                {
+                    var st = '<img src="{% static "images/cross.png" %}" width="6%">';
+                    $("#reg_password").html(st);
+                }
+                
+                
+                
+            }
+          });
+
+          
+
+        });
+
+
+        $("#id_submit").click( function(e){
+                var username = $("#id_username").val();
+                var email = $("#id_email").val();
+                var password = $("#id_password").val();
+                var role = $("input[name = 'role']:checked").val();
+                var str = username+","+email+","+password+","+role;
+                
+                $.ajax({
+                  type: "POST",
+                  url: '/ajax/validate/submit/',
+                  data:{
+                    'str':str,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                },
+                dataType: 'json',
+                  success: function(data){
+                    if(data.isAdded)
+                    {
+                        var st = '<font color="green">Succes, You May Login!</font>';
+                        $("#reg_submit").html(st);
+                        $("#id_submit").prop('disabled', true);
+                    }
+                    else
+                    {
+                        var st = '<font color="red">Something is Wrong!</font>';
+                        $("#reg_submit").html(st);
+                    }
+                  }
+                });
+                e.preventDefault();
+                document.getElementById("reg").reset();
+            });
+
+
+        
+        // $("#reg").on('input', checkAndEnableButton);
+        $(document).ready(function() {
+          $("#id_submit").prop('disabled', true);
+        });
+
+        
+
+        function checkAndEnableButton() {
+            
+
+          var username = $("#id_username").val();
+          var email = $("#id_email").val();
+          var p1 = $("#id_password").val();
+          var p2 = $("#id_password2").val();
+
+          
+
+          var u=0,e=0,p=0;
+          if(p1==p2 && p1.length>=8 && p2.length>=8)
+          {
+                p=1;
+          }
+            
+
+          $.ajax({
+            type:'POST',
+            url: '/ajax/validate/username/',
+            data:{
+                'str':username,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            dataType: 'json',
+            success: function (data) {  
+                
+                if(!data.is_taken && data.alnum)
+                {
+                    
+                    u=1;
+                    
+
+                    var breakFlag = (p && e && u) ;
+                      if (breakFlag) {
+                        $("#id_submit").prop('disabled', false);
+                      }
+                      if (breakFlag==0) {
+                        $("#id_submit").prop('disabled', true);
+                      }
+                }
+                  
+            }
+          });
+
+          $.ajax({
+            type:'POST',
+            url: '/ajax/validate/email/',
+            data:{
+                'str':email,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                
+                if(data.email)
+                {
+                    
+                    e=1;
+                    
+
+                    var breakFlag = (p && e && u) ;
+                      if (breakFlag) {
+                        $("#id_submit").prop('disabled', false);
+                      }
+                      if (breakFlag==0) {
+                        $("#id_submit").prop('disabled', true);
+                      }
+
+                }
+                
+                
+                
+            }
+          });
+          
+          
+
+        }
+
+
+    
+</script>
+{% endblock %}
+
+{% endblock %}
