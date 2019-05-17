@@ -1,0 +1,23 @@
+{
+  "name": "todo_node",
+  "version": "1.0.0",
+  "description": "A todo app created by NODEJS and hosted MongoDB.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "todo",
+    "node",
+    "mongo"
+  ],
+  "author": "pruvi007",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.0",
+    "mongoose": "^5.5.9",
+    "nodemon": "^1.19.0"
+  }
+}
