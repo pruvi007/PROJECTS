@@ -1,6 +1,8 @@
-This is my #Laravel Project - MVC of PHP#
+This is my 
+## Laravel Project - MVC of PHP
 
-Basically its a blog which supports the CRUD operations of a restful architecture.
+Basically its a blog which supports the 
+## CRUD operations of a restful architecture
 Supports adding users, creating blogs, reading blogs, updating and deleting blogs.
 
 Session is handled gracefully.
